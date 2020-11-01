@@ -3,8 +3,12 @@ var app = express();
 var path = require("path");
 
 
-var HTTP_PORT = process.env.HTTP_PORT || 8080;
+//var HTTP_PORT = process.env.HTTP_PORT || 8080;
 
+app.listen(process.env.PORT || 3000, function () {
+    console.log(`listening on ${process.env.PORT  || 3000}`)
+  })
+  
 function onHttpStart(){
     console.log("Express http server is listening on:" + HTTP_PORT);
 }
@@ -18,4 +22,4 @@ app.get("/index", function(req, res){
 });
 
 
-app.listen(HTTP_PORT, onHttpStart);
+//app.listen(HTTP_PORT, onHttpStart);
