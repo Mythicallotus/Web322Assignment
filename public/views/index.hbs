@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layout</title>
+        <!-- 
+Link to Fonts
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Lato&family=Molle&family=Timmana&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Oswald&family=Secular+One&display=swap" rel="stylesheet"/> 
+            <!-- 
+Link to Icons
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" type = "text/css "href="/public/style.css" />
+    <script src="/public/js/countries-data.js"></script>
+    <script src="/public/js/index.js"></script>
+    <!-- 
+    font-family: 'Monoton', cursive;
+
+    font-family: 'Oswald', sans-serif;
+
+    font-family: 'Secular One', sans-serif;
+    -->
+  </head>
+  <body>
+    <header>
+      <div class="containerHeaderTitle">
+        <h1>
+          <a class="mainHeaderTitle" href="/"> HouseRentals</a>
+        </h1>
+        
+      </div>
+    </header>
+    <ul>
+      <li><a class="active" href="/">Home</a></li> 
+      <li><a href="/index">Listings</a></li>
+      <li style= "float: right;"><a href="#signUp">Sign Up</a></li>
+      <li style= "float: right;"><a href="#login">Login</a></li>
+    </ul>
+    <div class="bodyContainer" id ="bodyContainer" >
+
+    </div>
+          {{> welcome }}
+  </body>
+</html>

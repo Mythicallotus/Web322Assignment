@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Layout</title>
+        <!-- 
+Link to Fonts
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Lato&family=Molle&family=Timmana&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Oswald&family=Secular+One&display=swap" rel="stylesheet"/> 
+            <!-- 
+Link to Icons
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" type = "text/css "href="./public/style.css" />
+    <script src="./public/js/countries-data.js"></script>
+    <script src="./public/js/index.js"></script>
+    <!-- 
+    font-family: 'Monoton', cursive;
+
+    font-family: 'Oswald', sans-serif;
+
+    font-family: 'Secular One', sans-serif;
+    -->
+  </head>
+  <body>
+
+    <header>
+      <div class="containerHeaderTitle">
+        <h1>
+          <a class="mainHeaderTitle" href="/"> HouseRentals</a>
+        </h1>
+
+
+      </div>
+
+    </header>
+    {{#if user.username}}
+        {{user.username}}
+    {{else}}
+        <p> Not Login </p>
+    {{/if}}
+    <ul>
+      <li><a class="active" href="/">Home</a></li> 
+      <li><a href="/index">Listings</a></li>
+      <li style= "float: right;"><a href="#signUp">Sign Up</a></li>
+      <li style= "float: right;"><a href="#login">Login</a></li>
+    </ul>
+  <!-- ///////////////////////////////////////////////////////////// -->  
+<div class= "homeMainBackG" id= "homeMainBackG">
+
+  <div class= "searchDiv" id= "searchDiv"> 
+    
+    <h4> Looking For A Place To Stay? </h4>
+
+    <div class="location-drop">
+      <label for="label-location" class="label-location">Location</label>
+      <select class="sel-location" name="sel-location" id="sel-location">
+        <option value="">Anywhere!</option>
+        <option value="">---</option>
+        <option value="Saskatoon">Saskatoon</option>
+        <option value="Victoria">Victoria</option>
+        <option value="Montreal">Montreal</option>
+        <option value="Kelowna">Kelowna</option>
+      </select>
+      
+      </div>
+      <div class = 'halfSpace' id = 'halfSpace'>
+        <div class="dateCheck" id = 'checkIn'>
+          <label for="label-location2" class="label-location2">Check In Date</label>
+          <input class="date-field" type="date" placeholder="mm/dd/yy" name="checkIn" required>
+        </div>
+        <div class="dateCheck" id = 'checkOut'>
+          <label for="label-location2" class="label-location2">Check Out Date</label>
+          <input class="date-field" type="date" placeholder="mm/dd/yy" name="checkOut" required>
+        </div>
+    </div>
+    <div class="guest-drop">
+      <label for="label-location" class="label-location">Guests</label>
+      <select class="sel-location" name="sel-location" id="sel-location">
+        <option value="">How Many ?</option>
+        <option value="">---</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+      </select>
+      </div>
+    <button type="button" class="btnS">Search</button>
+</div>
+<div class= "testingDiv2" id= "testingDiv2">
+
+</div>
+<div  class= "testingDiv1" id= "testingDiv1">
+  <h4>Stay 10 Nights Get 1 Free </h4>
+<p>Statying at any place for more than 10 nights and we cover the cost of the nigth for free. This promotion is only being held for a limited amount of night and is only for people that have a register account with HouseRentals'</p>
+<button type="button" class="btnS">Check If Eligible To Get This Deal</button>
+</div>
+<div  class= "testingDiv3" id= "testingDiv3">
+  <h4>About Us </h4>
+  <p>We are a very small canada conpany. HouseRentals was found in the late 60's what the idea that hotels cost to much and to make travel that much easier for poeple. when are cerently a staff of 1, but we hope to grow to 2 or mabey 3 by this time next year. We are hoping that you like are web app and wish you to Sub to are Youtube and give use a follow on Twitter if you get the change. </p>
+</div>
+<!-- ///////////////////////////////////////////////////////////// -->
+
+
+<!-- ///////////////////////////////////////////////////////////// -->
+</div>
+          {{> welcome }}
+  </body>
+</html>

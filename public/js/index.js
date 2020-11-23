@@ -87,7 +87,6 @@
   };
  
   function setupMenuHandlers() {
-    console.log("FUCK THE POLICE");
 /////////
 // Sign Up
     let modal = document.querySelector('#modal');
