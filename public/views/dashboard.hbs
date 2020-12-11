@@ -3,15 +3,33 @@
 
 <head>
   <title>Dashboard</title>
+  <!-- 
+  Link to Fonts
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Lato&family=Molle&family=Timmana&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Oswald&family=Secular+One&display=swap" rel="stylesheet"/> 
+            <!-- 
+Link to Icons
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" type = "text/css "href="./public/style.css" />
+    <script src="./public/js/countries-data.js"></script>
+    <script src="./public/js/index.js"></script>
 </head>
 
 <body>
+{{> navbar }}
+<div>
   <h3>Hello {{user.username}}</h3>
   <p>Welcome to your dashboard</p>
   <p>Here is the information we have on file for you:</p>
   <h4>username: {{user.username}} </h4>
   <h4>email: {{user.email}}</h4>
-  <a href="/logout">Logout</a>
+  </div>
+    {{> welcome }}
 </body>
+
 
 </html>

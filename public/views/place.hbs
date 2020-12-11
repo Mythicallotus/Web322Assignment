@@ -36,26 +36,22 @@ Link to Icons
       </div>
     </header>
 {{> navbar }}
-    <div class="bodyContainer" id ="bodyContainer" >
-{{#each places}}
+
+{{#if place}}
 <div>
-    <img id="imgID" src="public/images/{{photoR}}"> 
+    <img id="imgID" src="public/images/{{place.photoR}}"> 
     <div>
-      <p class="divName">{{rTilte}}</p>
-    {{#if user.username}}
-      <a href="/index/{{rTilte}}" id="bottle">Book a Room</a>
-    {{else}}
-    {{/if}}
-      <p class="divCost">{{price}}</p>
-      <p class="divStars">{{location}}</p>
+      <p class="divName">{{place.rTilte}}</p>
+      <p class="divCost">{{place.price}}</p>
+      <p class="divStars">{{place.location}}</p>
       </div>
 </div>
 {{else}}
         <tr>
         <td colspan="4">No Data Available</td>
     </tr>
-{{/each}}
-    </div>
+{{/if}}
+
           {{> welcome }}
   </body>
 </html>

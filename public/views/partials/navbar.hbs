@@ -1,0 +1,25 @@
+    
+    <div class="navbar">
+        <div class="navbarp">
+    {{#if user.username}}
+
+        <p> Hello {{user.username}} </p>
+       
+    {{else}}
+
+        <p> Not Login </p>
+        
+    {{/if}}
+</div>
+    <ul>
+      <li><a class="active" href="/">Home</a></li> 
+      <li><a href="/index">Listings</a></li>
+      <li style= "float: right;"><a href="#signUp">Sign Up</a></li>
+      <li style= "float: right;"><a onclick=getAllUsers() href="#login">Login</a></li>
+    {{#if user.username}}
+        <li style= "float: right;"><a href="/logout">Logout</a></li>
+        <li><a href="/placeMaker">Add a Listing</a></li>
+    {{else}}
+    {{/if}}
+    </ul>
+        </div>

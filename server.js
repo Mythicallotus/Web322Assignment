@@ -2,12 +2,15 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
-const muter = require("multer");
+const multer = require("multer");
 const exphbs = require('express-handlebars');
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 const clientSessions = require("client-sessions");
+const fs = require("fs");
+const { count } = require("console");
+
 app.use('/public' , express.static('public'));
 //var HTTP_PORT = process.env.HTTP_PORT || 8080;
 
@@ -22,6 +25,7 @@ app.listen(process.env.PORT || 3000, function () {
   /////////////////////////////////////////////////////////////////////////////////////
   app.use(clientSessions({
     cookieName: "session", // this is the object name that will be added to 'req'
+    
     secret: "week10example_web322", // this should be a long un-guessable string.
     duration: 2 * 60 * 1000, // duration of the session in milliseconds (2 minutes)
     activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
@@ -51,19 +55,32 @@ var registerUserSchema = new Schema({
   },
   "bData": String
 });
-////////////////////////////////////////////////////////////////////////////////////////
 var registerUser = mongoose.model("registerUser", registerUserSchema);
 
+var registerPlaceSchema = new Schema({
+  "rTilte":   { type: String, required: true },
+  "price":  { type: String, required: true },
+  "description":  { type: String, required: true },
+  "location": { type: String, unique: true, required: true} ,
+  "photoR": String
+});
+var registerPlace = mongoose.model("registerPlace", registerPlaceSchema);
+////////////////////////////////////////////////////////////////////////////////////////
+
+
 app.get("/", function(req, res){
-  res.render('home', {
-    layout: false
-  });
+  res.render("home", {user: req.session.user, layout: false});
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 app.get("/index", function(req, res){
-  res.render('index', {
-    layout: false
+
+  registerPlace.find({})
+  .exec()
+  .then((places) => {
+    places = places.map(value => value.toObject());
+    res.render("index", {user: req.session.user, places: places, layout: false});
   });
+
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -72,14 +89,15 @@ const hash = bcrypt.hashSync("B4c0/\/", salt);
 ////////////////////////////////////////////////////////////////////////////////////////
 function ensureLogin(req, res, next) {
   if (!req.session.user) {
-    res.redirect("/#login");
+    res.redirect("/");
   } else {
     next();
   }
 }
+///////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////////////
 app.post("/register-user",  urlencodedParser, (req, res) => {
-  //var dateMade = req.body.dob-day + "/" + req.body.dob-month + "/" + req.body.dob-year;
   var user2 = new registerUser({
     fName:  req.body.fName,
     lName: req.body.lName,
@@ -111,16 +129,32 @@ app.post("/register-user",  urlencodedParser, (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////
   app.post("/login-user",  urlencodedParser, (req, res) => {
 const email = req.body.email;
-const password = req.body.password;
+const password = req.body.psw;
+console.log(password);
+if(!email || !password)
+    return res.status(400).send('email & password are required');
 
       registerUser.findOne({ Email: email })
       .exec()
-      .then((inUser) => {
-          req.session.user = {
-            username: inUser["fName"] + " " + inUser["lName"],
-            email: inUser["Email"]
-          };
-          res.redirect("/dashboard");     
+      .then(inUser => {
+        if (inUser) {
+
+    //bcrypt.compare(password, inUser.Password),function (err, result){
+      console.log("Fuck the Pop");
+    //  if (result === true){
+              req.session.user = {
+                username: inUser["fName"] + " " + inUser["lName"],
+                email: inUser["Email"],
+                password: inUser["Password"]
+              };
+              res.redirect("/dashboard");   
+           // }else {
+             // return res.status(404).json({ email: "User not found" });
+            //}
+      // }
+        }else {
+          console.log("Did not crash");
+        }
     });
   });
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -133,3 +167,66 @@ const password = req.body.password;
     res.redirect("/");
   });
 ////////////////////////////////////////////////////////////////////////////////////////
+app.get("/placeMaker", ensureLogin, (req, res) => {
+  res.render("placeMaker", {user: req.session.user, layout: false});
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
+const PHOTODIRECTORY = "./public/images/";
+
+if (!fs.existsSync(PHOTODIRECTORY)) {
+  fs.mkdirSync(PHOTODIRECTORY);
+}
+
+const storage = multer.diskStorage({
+  destination: PHOTODIRECTORY,
+  filename: function (req, file, cb) {
+    cb(null , file.originalname);
+}
+});
+
+const upload = multer({ storage: storage });
+
+
+app.post("/register-newPlace",  urlencodedParser, upload.single("photo"), async (req, res) => {
+
+  var place = new registerPlace({
+    rTilte:  req.body.rTilte,
+    price: req.body.price,
+    description: req.body.description,
+    location: req.body.location,
+    photoR:  req.body.photo
+  });
+
+     place.save((err) => {
+      if(err) {
+        console.log("but how");
+        res.render("placeMaker", {user: req.session.user, layout: false});
+      } else {
+        console.log("Saved New Place");
+        res.render("placeMaker", {user: req.session.user, layout: false});
+      }
+  });
+});
+
+/////////////////////////////////////////////////////////////
+app.get('/index/:placeName', (req, res) => {
+  console.log(req.params.placeName);
+  const rTilte = req.params.placeName;
+  registerPlace.findOne({ rTilte: rTilte })
+  .exec()
+  .then(inPlace => {
+    if (inPlace) {
+            
+  console.log("FunTimes");
+
+          res.render("place", {user: req.session.user, place: inPlace.toObject(), layout: false});
+       // }else {
+         // return res.status(404).json({ email: "User not found" });
+        //}
+  // }
+    }else {
+      console.log("Did not crash");
+    }
+});
+})

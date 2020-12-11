@@ -15,9 +15,8 @@ Link to Icons
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
     <link rel="stylesheet" type = "text/css "href="/public/style.css" />
-    <script src="/public/js/countries-data.js"></script>
-    <script src="/public/js/index.js"></script>
-    <script src="/public/js/index.js"></script>
+   
+    
     <!-- 
     font-family: 'Monoton', cursive;
 
@@ -36,26 +35,27 @@ Link to Icons
       </div>
     </header>
 {{> navbar }}
-    <div class="bodyContainer" id ="bodyContainer" >
-{{#each places}}
-<div>
-    <img id="imgID" src="public/images/{{photoR}}"> 
-    <div>
-      <p class="divName">{{rTilte}}</p>
-    {{#if user.username}}
-      <a href="/index/{{rTilte}}" id="bottle">Book a Room</a>
-    {{else}}
-    {{/if}}
-      <p class="divCost">{{price}}</p>
-      <p class="divStars">{{location}}</p>
-      </div>
-</div>
-{{else}}
-        <tr>
-        <td colspan="4">No Data Available</td>
-    </tr>
-{{/each}}
+    <div class="addListingDiv">
+ <form action="/register-newPlace" method="POST" style="max-width:500px;margin:auto">
+
+<label class="label-add" for="roomTitle">Room Title:</label>
+<input  class="input-field-add" style="width:100%" name="rTilte" type="text" placeholder="Room Title" />
+
+<label class="label-add" for="price">Price:</label>
+<input  class="input-field-add" style="width:100%" name="price" type="text" placeholder="Price" />
+
+<label class="label-add" for="details">Details:</label>
+<input class="input-field-add" style="width:100%" name="description" type="text" placeholder="Details" />
+
+<label class="label-add" for="location">Location:</label>
+<input class="input-field-add" style="width:100%" name="location" type="text" placeholder="Location" />
+
+<label class="label-add" for="Photo">Photo:</label>
+<input class="input-field-add" style="width:100%" id="photo" name="photo" type="file" />
+
+<input type="submit" value="Submit File" />
+</form>
     </div>
-          {{> welcome }}
+{{> welcome }}
   </body>
 </html>

@@ -122,11 +122,11 @@
       spanL.onclick = function() {
           modalL.style.display = 'none';
         };
-    var candyOb = candysFun.getByType();
-    for (var i = 0; i < candyOb.length; i++) {
-      if(candyOb[i] != null){
-        tableHelper.CandyToDiv(candyOb[i]);
-      }
+   var candyOb = candysFun.getByType();
+   for (var i = 0; i < candyOb.length; i++) {
+     if(candyOb[i] != null){
+       tableHelper.CandyToDiv(candyOb[i]);
+     }
     };
 
 
